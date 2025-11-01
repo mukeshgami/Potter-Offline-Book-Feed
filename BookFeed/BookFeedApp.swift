@@ -10,12 +10,13 @@ import CoreData
 
 @main
 struct BookFeedApp: App {
-    let persistenceController = PersistenceController.shared
-
     var body: some Scene {
+        
+        let bookRepo = BooksRepository()
+        let bookViewModel = BooksViewModel(repository: bookRepo, monitor: NetworkMonitor.shared)
+        
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            HomeView(vm: bookViewModel)
         }
     }
 }
