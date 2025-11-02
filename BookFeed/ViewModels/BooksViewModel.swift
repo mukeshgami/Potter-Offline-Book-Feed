@@ -14,11 +14,11 @@ final class BooksViewModel: ObservableObject {
     @Published private(set) var books: [Book] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
-    @Published var isOnline: Bool = false {
+    @Published var isOnline: Bool {
         didSet {
             if isOnline {
                 Task {
-                    await syncWithRemote()
+                    await startSyncIfNeeded()
                 }
             }
         }
@@ -26,11 +26,17 @@ final class BooksViewModel: ObservableObject {
     
     private let repository: BooksRepoProtocol
     private var cancellables = Set<AnyCancellable>()
+    
+    private var remoteSyncStatus: SyncStatus {
+        didSet {
+             print("remoteSyncStatus-didset: ", remoteSyncStatus)
+        }
+    }
 
     init(repository: BooksRepoProtocol, monitor: NetworkMonitor) {
-        
         self.repository = repository
         self.isOnline = monitor.isConnected
+        self.remoteSyncStatus = .inactive
         
         monitor.$isConnected
             .receive(on: DispatchQueue.main)
@@ -41,14 +47,14 @@ final class BooksViewModel: ObservableObject {
     func loadInitial() {
         Task {
             await loadCached()
-            await syncWithRemote()
+            await startSyncIfNeeded()
         }
     }
 
     func loadCached() async {
         do {
             let cached = try await repository.loadCachedBooks()
-            print("cached: ", cached)
+            print("Load cached")
             self.books = cached
             self.errorMessage = nil
         } catch {
@@ -57,17 +63,41 @@ final class BooksViewModel: ObservableObject {
     }
 
     func syncWithRemote() async {
-        isLoading = true
-        defer { isLoading = false }
-        do {
-            let remote = try await repository.syncBooks()
-            print("remote: ", remote)
-            self.books = remote
-            self.errorMessage = nil
-        } catch {
-            print("Error: ", error)
-            self.errorMessage = "Unable to sync due network problem."
+        
+        guard remoteSyncStatus == .inactive else {
+            print("remote sync already running or recently completed")
+            return
         }
+        
+        guard isOnline else {
+            print("no sync since internet not available")
+            return
+        }
+        
+        isLoading = true
+        remoteSyncStatus = .started
+        defer {
+            isLoading = false
+        }
+
+        do {
+            let _ = try await repository.syncBooks()
+            print("Load remote")
+            remoteSyncStatus = .completed
+            await loadCached()
+            remoteSyncStatus = .inactive
+            errorMessage = nil
+        } catch {
+            print("remote sync failed. Error: \(error)")
+            remoteSyncStatus = .inactive
+            errorMessage = "Unable to sync due to network problem."
+        }
+    }
+
+    private func startSyncIfNeeded() async {
+        guard isOnline else { return }
+        guard remoteSyncStatus == .inactive else { return }
+        await syncWithRemote()
     }
 
     func refreshTriggered() {
@@ -89,4 +119,11 @@ final class BooksViewModel: ObservableObject {
             }
         }
     }
+}
+
+enum SyncStatus: String {
+    case started
+    case inprogress
+    case completed
+    case inactive
 }
