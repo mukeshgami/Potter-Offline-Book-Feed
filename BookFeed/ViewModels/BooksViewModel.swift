@@ -16,6 +16,7 @@ final class BooksViewModel: ObservableObject {
     @Published var errorMessage: String? = nil
     @Published var isOnline: Bool {
         didSet {
+            print("isOnline-didset: ", isOnline)
             if isOnline {
                 Task {
                     await startSyncIfNeeded()
@@ -33,12 +34,12 @@ final class BooksViewModel: ObservableObject {
         }
     }
 
-    init(repository: BooksRepoProtocol, monitor: NetworkMonitor) {
+    init(repository: BooksRepoProtocol, monitor: any NetworkMonitorProtocol) {
         self.repository = repository
         self.isOnline = monitor.isConnected
         self.remoteSyncStatus = .inactive
         
-        monitor.$isConnected
+        monitor.isConnectedPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: \.isOnline, on: self)
             .store(in: &cancellables)
