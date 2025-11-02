@@ -14,19 +14,11 @@
 			remoteGlobalIDString = DDF699AC2EB6264C00DD62F1;
 			remoteInfo = BookFeed;
 		};
-		DDF699CA2EB6264F00DD62F1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DDF699A52EB6264C00DD62F1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DDF699AC2EB6264C00DD62F1;
-			remoteInfo = BookFeed;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DDF699AD2EB6264C00DD62F1 /* BookFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDF699BF2EB6264F00DD62F1 /* BookFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDF699C92EB6264F00DD62F1 /* BookFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -38,11 +30,6 @@
 		DDF699C22EB6264F00DD62F1 /* BookFeedTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BookFeedTests;
-			sourceTree = "<group>";
-		};
-		DDF699CC2EB6264F00DD62F1 /* BookFeedUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BookFeedUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,13 +49,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DDF699C62EB6264F00DD62F1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +57,6 @@
 			children = (
 				DDF699AF2EB6264C00DD62F1 /* BookFeed */,
 				DDF699C22EB6264F00DD62F1 /* BookFeedTests */,
-				DDF699CC2EB6264F00DD62F1 /* BookFeedUITests */,
 				DDF699AE2EB6264C00DD62F1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +66,6 @@
 			children = (
 				DDF699AD2EB6264C00DD62F1 /* BookFeed.app */,
 				DDF699BF2EB6264F00DD62F1 /* BookFeedTests.xctest */,
-				DDF699C92EB6264F00DD62F1 /* BookFeedUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,29 +118,6 @@
 			productReference = DDF699BF2EB6264F00DD62F1 /* BookFeedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DDF699C82EB6264F00DD62F1 /* BookFeedUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DDF699D92EB6264F00DD62F1 /* Build configuration list for PBXNativeTarget "BookFeedUITests" */;
-			buildPhases = (
-				DDF699C52EB6264F00DD62F1 /* Sources */,
-				DDF699C62EB6264F00DD62F1 /* Frameworks */,
-				DDF699C72EB6264F00DD62F1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DDF699CB2EB6264F00DD62F1 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				DDF699CC2EB6264F00DD62F1 /* BookFeedUITests */,
-			);
-			name = BookFeedUITests;
-			packageProductDependencies = (
-			);
-			productName = BookFeedUITests;
-			productReference = DDF699C92EB6264F00DD62F1 /* BookFeedUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -177,10 +132,6 @@
 						CreatedOnToolsVersion = 26.0.1;
 					};
 					DDF699BE2EB6264F00DD62F1 = {
-						CreatedOnToolsVersion = 26.0.1;
-						TestTargetID = DDF699AC2EB6264C00DD62F1;
-					};
-					DDF699C82EB6264F00DD62F1 = {
 						CreatedOnToolsVersion = 26.0.1;
 						TestTargetID = DDF699AC2EB6264C00DD62F1;
 					};
@@ -202,7 +153,6 @@
 			targets = (
 				DDF699AC2EB6264C00DD62F1 /* BookFeed */,
 				DDF699BE2EB6264F00DD62F1 /* BookFeedTests */,
-				DDF699C82EB6264F00DD62F1 /* BookFeedUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +166,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DDF699BD2EB6264F00DD62F1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DDF699C72EB6264F00DD62F1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,13 +189,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DDF699C52EB6264F00DD62F1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -260,11 +196,6 @@
 			isa = PBXTargetDependency;
 			target = DDF699AC2EB6264C00DD62F1 /* BookFeed */;
 			targetProxy = DDF699C02EB6264F00DD62F1 /* PBXContainerItemProxy */;
-		};
-		DDF699CB2EB6264F00DD62F1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DDF699AC2EB6264C00DD62F1 /* BookFeed */;
-			targetProxy = DDF699CA2EB6264F00DD62F1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -402,6 +333,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -433,6 +365,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -492,44 +425,6 @@
 			};
 			name = Release;
 		};
-		DDF699DA2EB6264F00DD62F1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = in.mukeshgami.BookFeedUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BookFeed;
-			};
-			name = Debug;
-		};
-		DDF699DB2EB6264F00DD62F1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = in.mukeshgami.BookFeedUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BookFeed;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -556,15 +451,6 @@
 			buildConfigurations = (
 				DDF699D72EB6264F00DD62F1 /* Debug */,
 				DDF699D82EB6264F00DD62F1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DDF699D92EB6264F00DD62F1 /* Build configuration list for PBXNativeTarget "BookFeedUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DDF699DA2EB6264F00DD62F1 /* Debug */,
-				DDF699DB2EB6264F00DD62F1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
