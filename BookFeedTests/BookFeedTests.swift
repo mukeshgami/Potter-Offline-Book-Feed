@@ -71,4 +71,30 @@ final class BooksViewModelTests: XCTestCase {
         XCTAssertNotNil(sut.errorMessage)
         XCTAssertEqual(sut.errorMessage, "Unable to sync due to network problem.")
     }
+    
+    // TestCase#4 monitor goes online -> triggers sync -> books updated
+    func test_monitorGoesOnline_triggersSync_and_updatesBooks() async throws {
+        monitor.setConnection(false) //offline
+        
+        fakeRepo.cachedBooks = []
+        fakeRepo.remoteBooks = [
+            Book(number: 1, title: "Harry Potter - New Age", releaseDate: "Jun 26, 2004", cover: "", index: 1)
+        ]
+        
+        XCTAssertFalse(sut.books.contains { $0.title == "Harry Potter - New Age" })
+        
+        monitor.setConnection(true) //Internet available
+        
+        let deadline = Date().addingTimeInterval(1.0)
+        var isBooksUpdated = false
+        while Date() < deadline {
+            if sut.books.contains(where: { $0.title == "Harry Potter - New Age" }) {
+                isBooksUpdated = true
+                break
+            }
+            try? await Task.sleep(nanoseconds: 50_000_000) // 50ms
+        }
+        
+        XCTAssertTrue(isBooksUpdated, "Failed: Expected VM to triggers remote sync after network became online")
+    }
 }
