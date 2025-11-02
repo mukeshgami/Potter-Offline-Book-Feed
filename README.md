@@ -1,0 +1,50 @@
+# Potter Offline – Book Feed (Home Only)
+
+Book Feed is a small demo app built in **SwiftUI** using **MVVM + Repository Architecture**.  
+It fetches Harry Potter book data from a remote API and keeps it cached locally for offline use.
+
+---
+
+## Architecture
+
+**Flow:**  
+`SwiftUI View → ViewModel → Repository → LocalStore (Core Data) + RemoteDataSource (Potter API)`
+
+- **View** – Handles UI and user interactions.  
+- **ViewModel** – Exposes published state, manages loading, syncing, and searching.  
+- **Repository** – Coordinates data flow between remote and local sources.  
+- **LocalStore** – Saves books in Core Data for offline access.  
+- **RemoteDataSource** – Fetches books from `https://potterapi-fedeperin.vercel.app/en/books`.  
+- **NetworkMonitor** – Tracks online/offline status and triggers sync when the network becomes available.
+
+---
+
+## Core Features
+
+1. Display a scrollable list of books (poster, title, release date)  
+2. Load data from local storage first  
+3. Sync with API and update local data when online  
+4. Search for books by title  
+5. Pull-to-refresh to trigger sync  
+6. Show online/offline status  
+7. Handle errors gracefully
+
+---
+
+## Setup Instructions
+
+1. Clone or download this project.  
+2. Open **BookFeed.xcodeproj** in **Xcode 16 or higher**.  
+3. Run the app on a simulator or **iOS 17+** device.
+
+The app loads cached data first and then updates from the remote API if online.
+
+---
+
+## Testing
+
+Unit tests use **mock repositories** and a **mock network monitor** for isolation.  
+To run tests:
+
+```bash
+Command + U
