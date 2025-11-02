@@ -8,29 +8,67 @@
 import XCTest
 @testable import BookFeed
 
-final class BookFeedTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+//UnitTests
+@MainActor
+final class BooksViewModelTests: XCTestCase {
+    
+    var fakeRepo: MockBooksRepo!
+    var monitor: MockNetworkMonitor!
+    var sut: BooksViewModel!
+    
+    override func setUp() async throws {
+        fakeRepo = MockBooksRepo()
+        monitor = MockNetworkMonitor()
+        sut = BooksViewModel(repository: fakeRepo, monitor: monitor)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    override func tearDown() async throws {
+        sut = nil
+        monitor = nil
+        fakeRepo = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    // TestCase#1 - loadCached success -> books updated
+    func test_loadCached_success_updatesBooks() async throws {
+        
+        fakeRepo.cachedBooks = [
+            Book(number: 1, title: "Harry Potter", releaseDate: "Jun 26, 1997", cover: "", index: 1),
+            Book(number: 2, title: "Harry Potter New chapter", releaseDate: "Jun 26, 1999", cover: "", index: 2)
+        ]
+        
+        await sut.loadCached()
+        
+        XCTAssertEqual(sut.books.count, 2)
+        XCTAssertEqual(sut.books[0].title, "Harry Potter")
+        XCTAssertNil(sut.errorMessage)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    // TestCase#2 - syncWithRemote success -> repo persists remote -> viewmodel reloads cache -> books updated
+    func test_syncWithRemote_success_persistsAndReloadsFromCache() async throws {
+        fakeRepo.cachedBooks = [] // start empty
+        fakeRepo.remoteBooks = [
+            Book(number: 1, title: "Harry Potter", releaseDate: "Jun 26, 1997", cover: "", index: 1)
+        ]
+        sut.isOnline = true
+        
+        await sut.syncWithRemote()
+        
+        XCTAssertEqual(sut.books.count, 1)
+        XCTAssertEqual(sut.books.first?.title, "Harry Potter")
+        XCTAssertNil(sut.errorMessage)
+        XCTAssertFalse(sut.isLoading)
     }
-
+    
+    // TestCase#3 - syncWithRemote failure -> errorMessage and isLoading false
+    func test_syncWithRemote_failure_setsErrorMessage_and_stopsLoading() async throws {
+        // Arrange
+        fakeRepo.shouldThrow = true
+        sut.isOnline = true
+        
+        await sut.syncWithRemote()
+        
+        XCTAssertFalse(sut.isLoading)
+        XCTAssertNotNil(sut.errorMessage)
+        XCTAssertEqual(sut.errorMessage, "Unable to sync due to network problem.")
+    }
 }
